@@ -2,10 +2,17 @@
 
 #define BUTTONPIN  11
 #define LEDPIN     13
+#define WHISKERPIN 12
+
+uint8_t whiskerTouched()
+{
+  return !digitalRead(WHISKERPIN);
+}
 
 void setup()
 {
   pinMode(BUTTONPIN, INPUT_PULLUP);
+  pinMode(WHISKERPIN, INPUT_PULLUP);
 
   pinMode(LEDPIN, OUTPUT);
 
@@ -33,7 +40,13 @@ void loop()
       digitalWrite(LEDPIN, true);
     }
   }
-
+  
+  if (whiskerTouched())
+  {
+      MotorDir(RWD, RWD);
+      MotorSpeed(255, 100z);
+  }
+  
   if ((Semaphore == FREE) || (Semaphore == 2))
   {
     static uint32_t stopTime;
@@ -73,7 +86,7 @@ void loop()
       if (millis() > stopTime)
       {
         stateFlag = 0;
-        Semaphore = FREE;
+        Semaphore = 2;
       }
     }
   }
