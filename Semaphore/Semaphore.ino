@@ -1,9 +1,5 @@
 #include "arduAsuro.h"
 
-#define BUTTONPIN  11
-#define LEDPIN     13
-#define WHISKERPIN 12
-
 uint8_t whiskerTouched()
 {
   return !digitalRead(WHISKERPIN);
@@ -14,14 +10,17 @@ void setup()
   pinMode(BUTTONPIN, INPUT_PULLUP);
   pinMode(WHISKERPIN, INPUT_PULLUP);
 
-  pinMode(LEDPIN, OUTPUT);
-
+  pinMode(LEDPIN, OUTPUT); 
+  pinMode(EYE_LED_LEFT, OUTPUT);
+  pinMode(EYE_LED_RIGHT, OUTPUT);
+    
   Init();
   Serial.begin(9600);
 }
 
 uint8_t Semaphore = 0;
 
+// robot state machine with semaphores
 void loop()
 {
   Serial.print("semaphore: "); Serial.println(Semaphore);
@@ -44,7 +43,9 @@ void loop()
   if (whiskerTouched())
   {
       MotorDir(RWD, RWD);
-      MotorSpeed(255, 100z);
+      MotorSpeed(255, 100);
+      digitalWrite(EYE_LED_LEFT,  0);
+      digitalWrite(EYE_LED_RIGHT, 1);
   }
   
   if ((Semaphore == FREE) || (Semaphore == 2))
@@ -60,6 +61,8 @@ void loop()
       stateFlag = 1;
       MotorDir(FWD, FWD);
       MotorSpeed(255, 255);
+      digitalWrite(EYE_LED_LEFT,  1);
+      digitalWrite(EYE_LED_RIGHT, 1);
     }else
     {
       if (millis() > stopTime)
@@ -81,6 +84,8 @@ void loop()
       stopTime = millis() + 1000;
       stateFlag = 1;
       MotorDir(FREE, FREE);
+      digitalWrite(EYE_LED_LEFT,  0);
+      digitalWrite(EYE_LED_RIGHT, 0);
     }else
     {
       if (millis() > stopTime)
