@@ -11,7 +11,7 @@
 #define ENABLE_RIGHT   10 // OC1B used for motor PWM
 #define BUTTONPIN      11
 #define WHISKERPIN     12
-#define LEDPIN         13 // Arduino LED & I2C SCK
+#define LEDPIN         13 // ARDUINO LED & I2C SCK
 
 #define EYE_LED_LEFT   A0 // digital out or analog in
 #define EYE_LED_RIGHT  A1 // digital out or analog in
@@ -31,6 +31,9 @@
 #define BREAK   1                     /*!< Motor bremsen */
 #define FWD     2                     /*!< Motor vorwaerts */
 #define RWD     3                     /*!< Motor rueckwaerts */
+
+#define LEFT	1
+#define RIGHT   2
 
 void Init(void);
 void Msleep(uint32_t time_ms);
