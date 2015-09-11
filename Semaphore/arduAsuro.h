@@ -7,6 +7,7 @@
 //===== robot pin  ===  ARDUINO pin ====
 #define MOTOR_RIGHT1    2
 #define MOTOR_RIGHT2    3
+#define IR_SENSOR       4 // signal of SFH5110 sensor is active low
 #define ENABLE_LEFT     9 // OC1A used for motor PWM
 #define ENABLE_RIGHT   10 // OC1B used for motor PWM
 #define BUTTONPIN      11

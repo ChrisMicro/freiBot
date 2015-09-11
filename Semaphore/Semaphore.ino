@@ -7,6 +7,8 @@ uint8_t whiskerTouched()
 
 void setup()
 {
+  pinMode(IR_SENSOR, INPUT);
+
   pinMode(BUTTONPIN, INPUT_PULLUP);
   pinMode(WHISKERPIN, INPUT_PULLUP);
 
@@ -172,11 +174,53 @@ void lightChaser()
   }
 }
 
+#define IRSIGNAL_DETECTED !digitalRead(IR_SENSOR)
+
+uint8_t waitForIrSignal()
+{
+  while (!IRSIGNAL_DETECTED);
+}
+
+void testIrInput()
+{
+  setLed(EYE_LED_LEFT, 0);
+  waitForIrSignal();
+  setLed(EYE_LED_LEFT, 1);
+  delay(100);
+}
+
+void simpleIrMotorControl()
+{
+  int n, k;
+
+  waitForIrSignal(); // wait for start signal
+  
+  MotorSpeed(200, 200);
+  for (n = 0; n < 300; n++)
+  {
+    if (IRSIGNAL_DETECTED) // if signal, go forward
+    {
+      MotorDir(FWD, FWD); 
+      delay(500);
+    } else 
+    {
+      MotorDir(FWD, RWD); // rotate if there is no signal
+      delay(10);
+    }
+  }
+  MotorDir(FREE, FREE); // turn of motor if there is no signal
+}
+
 
 void loop()
 {
+  simpleIrMotorControl();
+  //testIrInput();
+  /*
   lightChaser();
   Serial.print("left: "); Serial.print(get_eyeValue(LEFT));
   Serial.print("  right: "); Serial.println(get_eyeValue(RIGHT));
   delay(10);
+  */
 }
+
