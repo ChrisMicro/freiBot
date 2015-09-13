@@ -1,24 +1,11 @@
-#include "arduAsuro.h"
-
-uint8_t whiskerTouched()
-{
-  return !digitalRead(WHISKERPIN);
-}
+#include "genuBot.h"
 
 void setup()
 {
-  pinMode(IR_SENSOR, INPUT);
-
-  pinMode(BUTTONPIN, INPUT_PULLUP);
-  pinMode(WHISKERPIN, INPUT_PULLUP);
-
-  pinMode(LEDPIN, OUTPUT);
-  pinMode(EYE_LED_LEFT, OUTPUT);
-  pinMode(EYE_LED_RIGHT, OUTPUT);
-
-  Init();
+  initRobotHardware();
   Serial.begin(9600);
 }
+
 #define AVERAGING_EYE_VALUES 200
 uint16_t get_eyeValue(uint8_t side)
 {
@@ -122,24 +109,9 @@ void stateMachine()
   }
 }
 
-void setLed(uint8_t led, uint8_t value)
-{
-  if (led == EYE_LED_LEFT)
-  {
-    pinMode(EYE_LED_LEFT, OUTPUT);
-    digitalWrite(EYE_LED_LEFT, value);
-  }
-  if (led == EYE_LED_RIGHT)
-  {
-    pinMode(EYE_LED_RIGHT, OUTPUT);
-    digitalWrite(EYE_LED_RIGHT, value);
-  }
-}
-
 #define MAXSPEED 230
 #define MINSPEDD 1
 #define SPEEDINCREMENT 10
-
 
 void lightChaser()
 {
@@ -174,13 +146,6 @@ void lightChaser()
   }
 }
 
-#define IRSIGNAL_DETECTED !digitalRead(IR_SENSOR)
-
-uint8_t waitForIrSignal()
-{
-  while (!IRSIGNAL_DETECTED);
-}
-
 void testIrInput()
 {
   setLed(EYE_LED_LEFT, 0);
@@ -192,24 +157,40 @@ void testIrInput()
 void simpleIrMotorControl()
 {
   int n, k;
-
+  beep();
   waitForIrSignal(); // wait for start signal
-  
+  MotorDir(FWD, RWD); // rotate if there is no signal
   MotorSpeed(200, 200);
   for (n = 0; n < 300; n++)
   {
-    if (IRSIGNAL_DETECTED) // if signal, go forward
+    if(isIrSignal()) // if signal, go forward
     {
+      setLed(EYE_LED_LEFT, 1);
       MotorDir(FWD, FWD); 
       delay(500);
+      setLed(EYE_LED_LEFT, 0);
     } else 
     {
       MotorDir(FWD, RWD); // rotate if there is no signal
       delay(10);
     }
+    if(whiskerTouched())
+    {
+      chirp();
+
+      MotorSpeed(200, 200);
+      // go back
+      MotorDir(RWD, RWD); 
+      delay(300);
+      // turn
+      MotorDir(FWD, RWD);
+      delay(300);
+    }
   }
   MotorDir(FREE, FREE); // turn of motor if there is no signal
+
 }
+
 
 
 void loop()
