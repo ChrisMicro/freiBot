@@ -47,7 +47,17 @@ void waitForIrSignal()
 
 uint8_t whiskerTouched()
 {
-  return !digitalRead(WHISKERPIN);
+  static uint8_t oldState=0;
+  uint8_t state;
+  uint8_t result=0;
+  
+  state=!digitalRead(WHISKERPIN);
+  
+  if((state!=0)&&(oldState==0)) result=1;
+
+  oldState=state;
+  
+  return result;
 }
 
 /******************* sound functions ***************************************************/

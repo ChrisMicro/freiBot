@@ -26,6 +26,14 @@ void Direction(int16_t a, int16_t b)
   MotorDir(a, b);
 }
 
+#define FORWARD_LENGTH 2
+ToDo_t Forward_List[] =
+{
+  // turn robot
+  {0, Direction, FWD, FWD},
+  {500, Speed, 200, 200},
+};
+
 #define TURNLEFT_LENGTH 3
 ToDo_t TurnLeft_List[] =
 {
@@ -44,13 +52,23 @@ ToDo_t BounceBack_List[] =
   {300, Speed, 200, 200},
   // turn
   {300, Direction, FWD, RWD},
-    // stop motors and wait for 200ms
+  // stop motors and wait for 200ms
   {200, Direction, FREE, FREE}
 };
 
 void bounceBackBehaviour(int16_t var1, int16_t var2)
 {
   ringBufAddInFront(&ToDoBuffer, BounceBack_List, BOUNCE_BACK);
+}
+
+void rotateBehaviour(int16_t var1, int16_t var2)
+{
+  ringBufAddInFront(&ToDoBuffer, TurnLeft_List, TURNLEFT_LENGTH);
+}
+
+void forwardBehaviour(int16_t var1, int16_t var2)
+{
+  ringBufAddInFront(&ToDoBuffer, Forward_List, FORWARD_LENGTH);
 }
 
 void setup()
@@ -102,6 +120,18 @@ void simpleIrMotorControl()
 }
 
 uint32_t NextTime = 0;
+
+void whiskerTest()
+{
+  if (whiskerTouched())
+  {
+    setLed(EYE_LED_LEFT, 1);
+
+    delay(1);
+
+  } else setLed(EYE_LED_LEFT, 0);
+}
+
 void loop()
 {
   ToDo_t action;
@@ -118,8 +148,9 @@ void loop()
       printf("size:%d: ", ringBufGetFillSize(&ToDoBuffer));
     }
   }
-  
+
   // sensor activations
-  if (whiskerTouched()) bounceBackBehaviour(0, 0);
+  if( whiskerTouched() ) bounceBackBehaviour(0, 0);
+  //if( isIrSignal()     ) forwardBehaviour(0,0);
 }
 
