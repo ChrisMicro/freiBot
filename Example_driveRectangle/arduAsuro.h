@@ -33,6 +33,7 @@
 #define MOTOR_RIGHT1      2 // dout, L293D pin10, motor driver right side, half bridge 1
 #define MOTOR_RIGHT2      3 // dout, L293D pin15, motor driver right side, half bridge 2
 #define IR_SENSOR         4 // din , SFH5110 sensor ( signal is active low )
+#define NEOPIXEL_PIN      7 // dout, WS2812 RGB LED controll pin
 #define ENABLE_LEFT       9 // dout, L293D pin9, motor driver enable pin for left moter, OC1A used for motor PWM
 #define ENABLE_RIGHT     10 // dout, L293D pin1, motor driver enable pin for right motor, OC1B used for motor PWM
 #define BUTTONPIN        11 // din,  button ( configure with pull up )
