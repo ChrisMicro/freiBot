@@ -1,4 +1,4 @@
-#include "arduAsuro.h"
+#include "genuBot.h"
 // MPU6050 test for genubot
 // function:
 // touch the robot and it will turn
@@ -40,7 +40,7 @@ void setup()
   pinMode(EYE_LED_LEFT, OUTPUT);
   pinMode(EYE_LED_RIGHT, OUTPUT);
 
-  Init();
+  initRobotHardware();
 
 
 #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
@@ -60,7 +60,8 @@ void setup()
 }
 
 void loop() {
-  uint32_t acceleration;
+  int geschwindigkeit=100;
+  uint32_t acceleration,planeAccerlaration;
   accelgyro.getAcceleration(&ax, &ay, &az);
   // display tab-separated accel/gyro x/y/z values
   Serial.print("a/g:\t");
@@ -69,14 +70,19 @@ void loop() {
   Serial.print(az / 100); Serial.print("\t");
   acceleration = sqrt((ax / 100) * (ax / 100) + (ay / 100) * (ay / 100) + (az / 100) * (az / 100));
   Serial.print("  accelleration:");
-  Serial.println(acceleration);
+  Serial.print(acceleration);
+  
+    planeAccerlaration = sqrt((ax / 100) * (ax / 100) + (ay / 100) * (ay / 100) );
+  Serial.print("  planeAccerlaration:");
+  Serial.println(planeAccerlaration);
 
-  if (acceleration <10)
+  if (planeAccerlaration >50)
   {
-    MotorDir(FWD, RWD);
-    MotorSpeed(250, 250);
-    delay(1000);
-    MotorDir(FREE, FREE);
-    delay(1000);
+  Turn ( 90, geschwindigkeit ); // drehen rechts 90 grad
+  delay(2000);
+ 
+  Turn ( -90, geschwindigkeit ); // drehen links 90 grad
+  delay(2000);
+
   }
 }
