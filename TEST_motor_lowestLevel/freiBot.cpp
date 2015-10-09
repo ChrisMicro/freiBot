@@ -1,4 +1,4 @@
-#include "arduAsuro.h"
+#include "asuro.h"
 
 void initRobotHardware()
 {
@@ -84,146 +84,23 @@ uint8_t whiskerTouched()
   return result;
 }
 
-/******************* sound functions ***************************************************/
-void motorTone(uint16_t freq_HZ, uint16_t duration_ms)
-{
-  uint16_t n;
-  uint32_t delayTime_us;
-  uint32_t counts;
-  
-  delayTime_us=1000000UL/freq_HZ/2;
-  counts=duration_ms*1000/delayTime_us;
-  MotorSpeed(255, 255);
-  
-  for(n=0;n<counts;n++)
-  {
-    MotorDir(FWD, FWD); // rotate if there is no signal
-    delayMicroseconds(delayTime_us);
-    MotorDir(RWD, RWD); // rotate if there is no signal
-    delayMicroseconds(delayTime_us);
-  }
-  MotorDir(FREE, FREE); // turn of motor if there is no signal
-}
-// beep with motors
-void beep()
-{
-  motorTone(440,100);
-}
+/*******************************************************************************
+*   -c--date---version--nickname--------email---------------------------------
+*
+*   (c) 2015   V0.1     stochri         christoph(at)roboterclub-freiburg.de
+*   (c) ..     V0.2     ...... ........ ( your name ) ........................
+*
+*******************************************************************************
+*   This program is free software; you can redistribute it and/or modify      *
+*   it under the terms of the GNU General Public License as published by      *
+*   the Free Software Foundation version 2 of the License,                    *
+*   If you want to use this software for commercial purposes and you          *
+*   don't want to make it open source, please contact the authors for         *
+*   licensing.                                                                *
+*                                                                             *
+*   IF YOU EXTEND THE PROGRAM PLEASE MAINTAIN THE LIST OF AUTHORS             *
+*   ( which means adding copyright in the list above )                        *
+*                                                                             *
+*******************************************************************************/
 
-#define ONETONE_DURATION_MS 10
-void motrChirp(uint16_t startFreq_HZ, uint16_t stopFreq_HZ,uint16_t duration_ms)
-{
-  uint16_t n;
-  uint16_t increment;
-  increment=(stopFreq_HZ-startFreq_HZ)*ONETONE_DURATION_MS/duration_ms;
-  for(n=startFreq_HZ;n<stopFreq_HZ;n+=increment)
-  {
-    motorTone(n,ONETONE_DURATION_MS);
-  }
-}
-
-void ringSound()
-{
-  uint8_t n;
-  for(n=0;n<5;n++)
-  {
-    beep();
-    delay(100);
-  }
-}
-
-void chirp()
-{
- motrChirp(1000,2000,100);
-}
-
-
-// original sound code from Asuro:
-/****************************************************************************/
-/*!
-  \file     sound.c
-  \brief    Soundausgabe Funktionen
-  Mit den Motoren des ASUROs lassen sich auch Töne erzeugen.\n
-  Das Prinzip dahinter ist folgendes:\n
-  Die Frequenz des Tons wird durch umschalten der Motor Drehrichtung bestimmt.\n
-  Die Lautstärke wird über die Geschwindigkeit der Motoren bestimmt.\n
-  Theoretisch liessen sich damit auch Stereo Signale erzeugen, da es ja zwei\n
-  Motoren gibt, die sich auch getrennt ansteuern lassen. Dazu müsste die\n
-  Sound Funktion allerdings umgeschrieben werden.
-  \see      Define fuer die Steuerung der Motoren in asuro.h\n
-            FWD, RWD
-  \version  sto2 - 01.09.2006 - stochri\n
-            first version
-  \version  V001 - 09.02.2007 - m.a.r.v.i.n\n
-            +++ Alle Funktionen\n
-            Kommentierte Version (KEINE Funktionsaenderung)
-  \version  V002 - 18.02.2007 - Sternthaler\n
-            +++ Alle Funktionen\n
-            Einheitliche Formatierung zu den anderen Sourcen.
-  \version  V003 - 26.06.2007 - stochri\n
-            Bugfix Fehler in der Soundlaenge (max. 250ms)  
-            
-*****************************************************************************/
-/*****************************************************************************
-*                                                                            *
-*   This program is free software; you can redistribute it and/or modify     *
-*   it under the terms of the GNU General Public License as published by     *
-*   the Free Software Foundation; either version 2 of the License, or        *
-*   any later version.                                                       *
-*                                                                            *
-*****************************************************************************/
-//#include "asuro.h"
-
-/****************************************************************************/
-/*!
-  \brief
-  Soundausgabe ueber die Motoren.
-  \param[in]
-  freq          Frequenz in Hz
-  \param[in]
-  duration_msec Laenge in Millisekunden
-  \param[in]
-  amplitude     Amplitude
-  \return
-  nichts
-  \par  Beispiel:
-  (Nur zur Demonstration der Parameter/Returnwerte)
-  \code
-  // Laesst den Asuro einen Ton von 1kHz für eine 1/2 Sekunde
-  // mit max. Amplitude (255) spielen.
-  Sound (1000, 500, 255);
-  \endcode
-*****************************************************************************/
-/*
-void Sound (
-  uint16_t freq,
-  uint16_t duration_msec,
-  uint8_t  amplitude)
-{
-  uint16_t wait_tics;
-  uint32_t n,k,period_usec,dauer_usec;
-
-  period_usec = 1000000L / freq;
-  dauer_usec = 1000 * (uint32_t) duration_msec;
-  k = dauer_usec / period_usec;
-
-  //IR Interuptfreq=36KHz
-  //Wavefreq=18KHz
-
-  wait_tics = 18000 / freq;
-
-  MotorSpeed (amplitude, amplitude);
-
-  for (n = 0; n < k; n++)
-  {
-    MotorDir (FWD, FWD);
-    Sleep (wait_tics);
-    MotorDir (RWD, RWD);
-    Sleep (wait_tics);
-  }
-  MotorSpeed (0, 0);
-}*/
-
-
-//#define BEEP sound (1000, 100, 255)
 

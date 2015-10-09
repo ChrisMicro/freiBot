@@ -1,13 +1,14 @@
 
-  #include "arduAsuro.h"
-  
+  #include "asuro.h"
+
   void initRobotHardware(void);
   uint16_t get_eyeValue(uint8_t side);
   void setLed(uint8_t led, uint8_t value);
   uint8_t isIrSignal(void);
   void waitForIrSignal(void);
   uint8_t whiskerTouched(void);
-  void motorTone(uint16_t freq_HZ, uint16_t duration_ms);
+    void Sound ( uint16_t freq,  uint16_t duration_msec,  uint8_t  amplitude);
+
   void motrChirp(uint16_t startFreq_HZ, uint16_t stopFreq_HZ,uint16_t duration_ms);
   void ringSound(void);
   void chirp(void);

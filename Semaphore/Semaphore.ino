@@ -1,4 +1,4 @@
-#include "genuBot.h"
+#include "freiBot.h"
 
 void setup()
 {
@@ -6,27 +6,7 @@ void setup()
   Serial.begin(9600);
 }
 
-#define AVERAGING_EYE_VALUES 200
-uint16_t get_eyeValue(uint8_t side)
-{
-  uint8_t eye, n;
-  uint32_t value = 0;
 
-  if (side == LEFT) eye = EYE_LED_LEFT;
-  else           eye = EYE_LED_RIGHT;
-
-  pinMode(eye, OUTPUT);
-  digitalWrite(eye, 0); // discharge
-  pinMode(eye, INPUT);
-
-  for (n = 0; n < AVERAGING_EYE_VALUES; n++)
-  {
-    value += analogRead(eye);
-  }
-  value /= AVERAGING_EYE_VALUES;
-
-  return value;
-}
 
 uint8_t Semaphore = 0;
 // robot state machine with semaphores
@@ -157,7 +137,7 @@ void testIrInput()
 void simpleIrMotorControl()
 {
   int n, k;
-  beep();
+  BEEP;
   waitForIrSignal(); // wait for start signal
   MotorDir(FWD, RWD); // rotate if there is no signal
   MotorSpeed(200, 200);

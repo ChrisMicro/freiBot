@@ -7,7 +7,7 @@
  Description : ToDo list architecture to control a robot
  ============================================================================
  */
-#include "genuBot.h"
+#include "freiBot.h"
 
 #include "ringBuffer.h"
 

@@ -1,4 +1,4 @@
-#include "genuBot.h"
+#include "freiBot.h"
 // MPU6050 test for genubot
 // function:
 // touch the robot and it will turn
