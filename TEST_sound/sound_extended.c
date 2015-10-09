@@ -1,19 +1,44 @@
+#include "asuro.h"
+#include "sound.h"
 
-  #include "asuro.h"
-  //#include "sound.h"
-  
-  void initRobotHardware(void);
-  uint16_t get_eyeValue(uint8_t side);
-  void setLed(uint8_t led, uint8_t value);
-  uint8_t isIrSignal(void);
-  void waitForIrSignal(void);
-  uint8_t whiskerTouched(void);
-    void Sound ( uint16_t freq,  uint16_t duration_msec,  uint8_t  amplitude);
+#define ONETONE_DURATION_MS 10
 
-  void motrChirp(uint16_t startFreq_HZ, uint16_t stopFreq_HZ,uint16_t duration_ms);
-  void ringSound(void);
-  void chirp(void);
-  void beep(void);
+uint8_t Loudness=255;
+
+void motrChirp(uint16_t startFreq_HZ, uint16_t stopFreq_HZ,uint16_t duration_ms)
+{
+  int16_t n;
+  int16_t increment;
+  increment=((int16_t)stopFreq_HZ-(int16_t)startFreq_HZ)*ONETONE_DURATION_MS/duration_ms;
+  if(increment>0)
+  {
+    for(n=startFreq_HZ;n<stopFreq_HZ;n+=increment)
+    {
+      motorTone(n,ONETONE_DURATION_MS);
+    }
+  }else
+  {
+    for(n=startFreq_HZ;n>stopFreq_HZ;n+=increment)
+    {
+      motorTone(n,ONETONE_DURATION_MS);
+    }
+  }
+}
+
+void ringSound()
+{
+  uint8_t n;
+  for(n=0;n<20;n++)
+  {
+    motorTone (1000, 10);
+    delay(20);
+  }
+}
+
+void chirp()
+{
+ motrChirp(1000,2000,100);
+}
 
 /*******************************************************************************
 *   -c--date---version--nickname--------email---------------------------------
@@ -33,4 +58,3 @@
 *   ( which means adding copyright in the list above )                        *
 *                                                                             *
 *******************************************************************************/
-

@@ -12,9 +12,8 @@ void motrChirp(uint16_t startFreq_HZ, uint16_t stopFreq_HZ,uint16_t duration_ms)
   increment=(stopFreq_HZ-startFreq_HZ)*ONETONE_DURATION_MS/duration_ms;
   for(n=startFreq_HZ;n<stopFreq_HZ;n+=increment)
   {
-    Sound (n,ONETONE_DURATION_MS,Loudness);
-
-    //motorTone(n,ONETONE_DURATION_MS);
+    //Sound (n,ONETONE_DURATION_MS,Loudness);
+    motorTone(n,ONETONE_DURATION_MS);
   }
 }
 

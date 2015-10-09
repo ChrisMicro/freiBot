@@ -1,7 +1,6 @@
 #include "asuro.h"
 
 
-
 /****************************************************************************/
 /*!
   \file     sound.c
@@ -123,4 +122,8 @@ void motorTone(uint16_t freq_HZ, uint16_t duration_ms)
 }
 
 //#define BEEP sound (1000, 100, 255)
-#define BEEP motorTone (1000, 100)
+
+// Asuro dual tone playing found here:
+// https://github.com/OttoAllmendinger/asuro-syd/blob/master/test-music/syd_music.c
+// ( Author        : Henk van Winkoop )
+
