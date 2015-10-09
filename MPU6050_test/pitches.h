@@ -1,6 +1,3 @@
-// This file is from the Arduino Webside
-// https://www.arduino.cc/en/Tutorial/toneMelody
-//
 /*************************************************
  * Public Constants
  *************************************************/

@@ -1,55 +1,29 @@
+#include "Arduino.h"
+#include "stdint.h"
+#include "pin_defintions.h"
 
-/*************************************************************************
-  
-  TESTPROGRAM: Are the motors connected correct?
-  
-  1. left  motor forward  
-  2. left  motor backward  
-  3. right motor forward  
-  4. right motor backward  
-  
-*************************************************************************/
-#include "freiBot.h"
+/************************************************************************************
 
-void setup()
-{
-  initRobotHardware();
-}
+	driver definitions
 
-void loop()
-{
-  int geschwindigkeit=100;
-  delay(5000); 
+        Functions for compatibility to the ASURO robot
 
-  MotorSpeed(geschwindigkeit, 0);
-  
-  // left motor forward  
-  MotorDir( FWD,BREAK);
-  delay(500); 
-  MotorDir(BREAK, BREAK);
-  delay(2000); 
+************************************************************************************/
+// ASRURO Motor states
+#define FREE    0                    // motor free runing
+#define BREAK   1                    // break motor
+#define FWD     2                    // motor forward
+#define RWD     3                    // motor backward
 
-  // left motor backward  
-  MotorDir(RWD,BREAK);
-  delay(500); 
-  MotorDir(BREAK, BREAK);
-  delay(2000);
-  
-  MotorSpeed(0, geschwindigkeit);
-  
-  // right motor forward  
-  MotorDir(BREAK, FWD);
-  delay(500); 
-  MotorDir(BREAK, BREAK);
-  delay(2000); 
+#define LEFT	1
+#define RIGHT   2
 
-  // right motor backward  
-  MotorDir(BREAK, RWD);
-  delay(500); 
-  MotorDir(BREAK, BREAK);
-  delay(2000); 
-  
-}
+void Msleep(uint32_t time_ms);
+void MotorSpeed(uint8_t left, uint8_t right);
+void MotorDir(uint8_t left, uint8_t right);
+void Go   ( int16_t distance, uint8_t speed ); 
+void Turn ( int16_t degree  , uint8_t speed );
+
 /*******************************************************************************
 *   -c--date---version--nickname--------email---------------------------------
 *
@@ -68,5 +42,4 @@ void loop()
 *   ( which means adding copyright in the list above )                        *
 *                                                                             *
 *******************************************************************************/
-
 

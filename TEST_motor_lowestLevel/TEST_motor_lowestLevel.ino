@@ -7,6 +7,7 @@
   2. left  motor backward  
   3. right motor forward  
   4. right motor backward  
+
   
 *************************************************************************/
 #include "freiBot.h"
@@ -16,39 +17,53 @@ void setup()
   initRobotHardware();
 }
 
+
 void loop()
 {
-  int geschwindigkeit=100;
+  int maxSpeed=100;
+  delay(5000); 
+  
+  //************** left motor forward ********************************
+  digitalWrite(MOTOR_LEFT1, LOW);
+  digitalWrite(MOTOR_LEFT2, HIGH);
+
+  analogWrite(ENABLE_LEFT, maxSpeed);
+  delay(1000); 
+
+  analogWrite(ENABLE_LEFT, 0); // turn off
+  delay(5000); 
+  
+  //************** left motor backward ********************************
+  digitalWrite(MOTOR_LEFT1, HIGH);
+  digitalWrite(MOTOR_LEFT2, LOW);
+
+  analogWrite(ENABLE_LEFT, maxSpeed);
+  delay(1000); 
+
+  analogWrite(ENABLE_LEFT, 0); // turn off
   delay(5000); 
 
-  MotorSpeed(geschwindigkeit, 0);
-  
-  // left motor forward  
-  MotorDir( FWD,BREAK);
-  delay(500); 
-  MotorDir(BREAK, BREAK);
-  delay(2000); 
+  //************** RIGHT motor forward ********************************
+  digitalWrite(MOTOR_RIGHT1, LOW);
+  digitalWrite(MOTOR_RIGHT2, HIGH);
 
-  // left motor backward  
-  MotorDir(RWD,BREAK);
-  delay(500); 
-  MotorDir(BREAK, BREAK);
-  delay(2000);
-  
-  MotorSpeed(0, geschwindigkeit);
-  
-  // right motor forward  
-  MotorDir(BREAK, FWD);
-  delay(500); 
-  MotorDir(BREAK, BREAK);
-  delay(2000); 
+  analogWrite(ENABLE_RIGHT, maxSpeed);
+  delay(1000); 
 
-  // right motor backward  
-  MotorDir(BREAK, RWD);
-  delay(500); 
-  MotorDir(BREAK, BREAK);
-  delay(2000); 
+  analogWrite(ENABLE_RIGHT, 0); // turn off
+  delay(5000); 
   
+  //************** RIGHT motor backward ********************************
+  digitalWrite(MOTOR_RIGHT1, HIGH);
+  digitalWrite(MOTOR_RIGHT2, LOW);
+
+  analogWrite(ENABLE_RIGHT, maxSpeed);
+  delay(1000); 
+
+  analogWrite(ENABLE_RIGHT, 0); // turn off
+  delay(5000); 
+
+
 }
 /*******************************************************************************
 *   -c--date---version--nickname--------email---------------------------------

@@ -1,55 +1,20 @@
 
-/*************************************************************************
+  #include "asuro.h"
+  //#include "sound.h"
   
-  TESTPROGRAM: Are the motors connected correct?
-  
-  1. left  motor forward  
-  2. left  motor backward  
-  3. right motor forward  
-  4. right motor backward  
-  
-*************************************************************************/
-#include "freiBot.h"
+  void initRobotHardware(void);
+  uint16_t get_eyeValue(uint8_t side);
+  void setLed(uint8_t led, uint8_t value);
+  uint8_t isIrSignal(void);
+  void waitForIrSignal(void);
+  uint8_t whiskerTouched(void);
+    void Sound ( uint16_t freq,  uint16_t duration_msec,  uint8_t  amplitude);
+  //void motorTone(uint16_t freq_HZ, uint16_t duration_ms);
+  void motrChirp(uint16_t startFreq_HZ, uint16_t stopFreq_HZ,uint16_t duration_ms);
+  void ringSound(void);
+  void chirp(void);
+  void beep(void);
 
-void setup()
-{
-  initRobotHardware();
-}
-
-void loop()
-{
-  int geschwindigkeit=100;
-  delay(5000); 
-
-  MotorSpeed(geschwindigkeit, 0);
-  
-  // left motor forward  
-  MotorDir( FWD,BREAK);
-  delay(500); 
-  MotorDir(BREAK, BREAK);
-  delay(2000); 
-
-  // left motor backward  
-  MotorDir(RWD,BREAK);
-  delay(500); 
-  MotorDir(BREAK, BREAK);
-  delay(2000);
-  
-  MotorSpeed(0, geschwindigkeit);
-  
-  // right motor forward  
-  MotorDir(BREAK, FWD);
-  delay(500); 
-  MotorDir(BREAK, BREAK);
-  delay(2000); 
-
-  // right motor backward  
-  MotorDir(BREAK, RWD);
-  delay(500); 
-  MotorDir(BREAK, BREAK);
-  delay(2000); 
-  
-}
 /*******************************************************************************
 *   -c--date---version--nickname--------email---------------------------------
 *
@@ -68,5 +33,4 @@ void loop()
 *   ( which means adding copyright in the list above )                        *
 *                                                                             *
 *******************************************************************************/
-
 

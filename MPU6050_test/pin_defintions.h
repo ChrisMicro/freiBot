@@ -1,6 +1,3 @@
-#include "Arduino.h"
-#include "stdint.h"
-
 /*************************************************************************************
 
   GENUBOT 
@@ -30,19 +27,20 @@
 
 // net list:
 //===== robot pin name =  ARDUINO pin ===============================================================
-#define MOTOR_RIGHT1      2 // dout, L293D pin10, motor driver right side, half bridge 1
-#define MOTOR_RIGHT2      3 // dout, L293D pin15, motor driver right side, half bridge 2
-#define IR_SENSOR         4 // din , SFH5110 sensor ( signal is active low )
-#define ENABLE_LEFT       9 // dout, L293D pin9, motor driver enable pin for left moter, OC1A used for motor PWM
-#define ENABLE_RIGHT     10 // dout, L293D pin1, motor driver enable pin for right motor, OC1B used for motor PWM
+#define MOTOR_RIGHT1     3 // dout, L293D pin10, motor driver right side, half bridge 1
+#define MOTOR_RIGHT2     2 // dout, L293D pin15, motor driver right side, half bridge 2
+#define IR_SENSOR        4  // din , SFH5110 sensor ( signal is active low )
+#define NEOPIXEL_PIN     7  // dout, WS2812 RGB LED controll pin
+#define ENABLE_LEFT      10 // dout, L293D pin9, motor driver enable pin for left moter, OC1A used for motor PWM
+#define ENABLE_RIGHT     11  // dout, L293D pin1, motor driver enable pin for right motor, OC1B used for motor PWM
 #define BUTTONPIN        11 // din,  button ( configure with pull up )
 #define WHISKERPIN       12 // din,  whisker ( like a button configure with pull up )
 #define LEDPIN           13 // dout, ARDUINO NANO LED 
 
 #define EYE_LED_LEFT     A0 // dout,ain, LED or LED as light sensor
 #define EYE_LED_RIGHT    A1 // dout,ain, LED or LED as light sensor
-#define MOTOR_LEFT1      A2 // dout, L293D pin7, motor driver left side half bridge 1
-#define MOTOR_LEFT2      A3 // dout, L293D pin2, motor driver left side half bridge 2
+#define MOTOR_LEFT1      A3  // dout, L293D pin7, motor driver left side half bridge 1
+#define MOTOR_LEFT2      A2  // dout, L293D pin2, motor driver left side half bridge 2
 
 // A2
 // A3
@@ -56,27 +54,3 @@
 // digital input for second whisker
 // CNY70 line sensor digital out for LED
 // CNY70 line sensor digital in for sensor
-
-/************************************************************************************
-
-	driver definitions
-
-************************************************************************************/
-// ASRURO Motor states
-#define FREE    0                     /*!< Motor freilaufend */
-#define BREAK   1                     /*!< Motor bremsen */
-#define FWD     2                     /*!< Motor vorwaerts */
-#define RWD     3                     /*!< Motor rueckwaerts */
-
-#define LEFT	1
-#define RIGHT   2
-
-void Msleep(uint32_t time_ms);
-void MotorSpeed(uint8_t left, uint8_t right);
-void MotorDir(uint8_t left, uint8_t right);
-
-// exampels:
-//  MotorSpeed(150,150);
-//  MotorDir(FWD,FWD);
-
-

@@ -1,4 +1,4 @@
-#include "arduAsuro.h"
+#include "asuro.h"
 
 void initRobotHardware()
 {
@@ -84,58 +84,7 @@ uint8_t whiskerTouched()
   return result;
 }
 
-/******************* sound functions ***************************************************/
-void motorTone(uint16_t freq_HZ, uint16_t duration_ms)
-{
-  uint16_t n;
-  uint32_t delayTime_us;
-  uint32_t counts;
-  
-  delayTime_us=1000000UL/freq_HZ/2;
-  counts=duration_ms*1000/delayTime_us;
-  MotorSpeed(255, 255);
-  
-  for(n=0;n<counts;n++)
-  {
-    MotorDir(FWD, FWD); // rotate if there is no signal
-    delayMicroseconds(delayTime_us);
-    MotorDir(RWD, RWD); // rotate if there is no signal
-    delayMicroseconds(delayTime_us);
-  }
-  MotorDir(FREE, FREE); // turn of motor if there is no signal
-}
-// beep with motors
-void beep()
-{
-  motorTone(440,100);
-}
 
-#define ONETONE_DURATION_MS 10
-void motrChirp(uint16_t startFreq_HZ, uint16_t stopFreq_HZ,uint16_t duration_ms)
-{
-  uint16_t n;
-  uint16_t increment;
-  increment=(stopFreq_HZ-startFreq_HZ)*ONETONE_DURATION_MS/duration_ms;
-  for(n=startFreq_HZ;n<stopFreq_HZ;n+=increment)
-  {
-    motorTone(n,ONETONE_DURATION_MS);
-  }
-}
-
-void ringSound()
-{
-  uint8_t n;
-  for(n=0;n<5;n++)
-  {
-    beep();
-    delay(100);
-  }
-}
-
-void chirp()
-{
- motrChirp(1000,2000,100);
-}
 
 // original sound code from Asuro:
 /****************************************************************************/
@@ -172,8 +121,6 @@ void chirp()
 *                                                                            *
 *****************************************************************************/
 //#include "asuro.h"
-
-
 
 /****************************************************************************/
 /*!
