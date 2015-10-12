@@ -20,7 +20,7 @@ void setup()
 
 void loop()
 {
-  int maxSpeed=100;
+  int maxSpeed=200;
   delay(5000); 
   
   //************** left motor forward ********************************
