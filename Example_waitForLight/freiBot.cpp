@@ -53,6 +53,34 @@ uint16_t get_eyeValue(uint8_t side)
   return value;
 }
 
+#define LIGHTJUMPTRIGGERLEVEL 20
+// wait for a sudden increasing light and exit
+// or exit after timeout
+uint8_t isLightJump(uint32_t timeOut_ms)
+{
+  int16_t oldValue = 0x7FFF;
+  int16_t value;
+  int16_t left;
+  int16_t right;
+  uint8_t trueIfLightJump = false;
+  uint32_t stopTime;
+
+  stopTime = millis() + timeOut_ms;
+  while (millis() < stopTime)
+  {
+    left  = get_eyeValue(LEFT);
+    right = get_eyeValue(RIGHT);
+    value = left + right;
+    if (value - oldValue > LIGHTJUMPTRIGGERLEVEL)
+    {
+      trueIfLightJump = true;
+      break;
+    }
+    oldValue = value;
+  }
+  return trueIfLightJump;
+}
+
 void setLed(uint8_t led, uint8_t value)
 {
   if (led == EYE_LED_LEFT)
