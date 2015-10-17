@@ -25,7 +25,7 @@ void initRobotHardware()
 
 uint16_t get_eyeValue(uint8_t side)
 {
-  uint16_t eye, n;
+  uint16_t eye;
   uint32_t value = 0;
   uint32_t stopTime;
   uint32_t count = 0;
