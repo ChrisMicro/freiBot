@@ -1,25 +1,48 @@
-#ifdef __cplusplus
-extern "C"
+
+/*************************************************************************
+
+  Example:
+  Read the LED-light sensors and rattle on a sudden increase of
+  light.
+
+*************************************************************************/
+#include "freiBot.h"
+
+void setup()
 {
-#endif
-
-#ifndef __SOUND_EXTENDED__
-  #define __SOUND_EXTENDED__
-
-  #include "sound.h"
-  
-  void motrChirp(uint16_t startFreq_HZ, uint16_t stopFreq_HZ,uint16_t duration_ms);
-  void ringSound();
-  void chirp();
-  void sirene(uint16_t repetitions);
-
- 
-  #endif // __SOUND_EXTENDED__
-
-#ifdef __cplusplus
+  initRobotHardware();
+  Serial.begin(9600);
 }
-#endif
 
+#define MAXSPEED 150
+
+void loop()
+{
+  int n;
+  if ( isLightJump(1000) )
+  {
+    MotorSpeed(MAXSPEED, MAXSPEED);
+    
+    // rattle loop
+    for (n = 0; n < 10; n++)
+    {
+      MotorDir(RWD, FWD);
+      delay(50);
+      MotorDir(FWD, RWD);
+      delay(50);
+    }
+    MotorDir(BREAK, BREAK);
+
+    sirene(2);
+    delay(2000);
+    BEEP; // check for a light jump for 1000ms
+  }
+
+  setLed(EYE_LED_LEFT,  1);
+  setLed(EYE_LED_RIGHT, 1);
+
+  delay(50);
+}
 /*******************************************************************************
 *   -c--date---version--nickname--------email---------------------------------
 *
@@ -38,3 +61,4 @@ extern "C"
 *   ( which means adding copyright in the list above )                        *
 *                                                                             *
 *******************************************************************************/
+

@@ -1,24 +1,20 @@
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
-#ifndef __SOUND_EXTENDED__
-  #define __SOUND_EXTENDED__
-
-  #include "sound.h"
+  #include "asuro.h"
+  //#include "sound.h"
   
+  void initRobotHardware(void);
+  uint16_t get_eyeValue(uint8_t side);
+  uint8_t isLightJump(uint32_t timeOut_ms);
+  void setLed(uint8_t led, uint8_t value);
+  uint8_t isIrSignal(void);
+  void waitForIrSignal(void);
+  uint8_t whiskerTouched(void);
+    void Sound ( uint16_t freq,  uint16_t duration_msec,  uint8_t  amplitude);
+
   void motrChirp(uint16_t startFreq_HZ, uint16_t stopFreq_HZ,uint16_t duration_ms);
-  void ringSound();
-  void chirp();
-  void sirene(uint16_t repetitions);
-
- 
-  #endif // __SOUND_EXTENDED__
-
-#ifdef __cplusplus
-}
-#endif
+  void ringSound(void);
+  void chirp(void);
+  void beep(void);
 
 /*******************************************************************************
 *   -c--date---version--nickname--------email---------------------------------
@@ -38,3 +34,4 @@ extern "C"
 *   ( which means adding copyright in the list above )                        *
 *                                                                             *
 *******************************************************************************/
+
