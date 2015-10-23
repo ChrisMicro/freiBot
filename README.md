@@ -6,4 +6,9 @@ The design goal is a robot which is
 - low circuit cost
 - usefull for workshops
 
-Its design is similiar to the ASURO robot.
+Here you can see the pictures:
+
+http://roboterclub-freiburg.de/projekte/freiBot/index.php
+
+
+
