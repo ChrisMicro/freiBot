@@ -2,20 +2,28 @@
 freiBot Pneu
 robot wheel to press-fit on bearing
 2015 by cho & stahl
+
+hub added
+2015 by stochri
+
 */
 
 $fn=100; // resolution
 
 // dimensions
 outer_r = 26/2; // outer radius
-inner_r = 22/2; // inner radius / radius of bearing
-flange_hole_r = 7;
+inner_r = 23/2; // inner radius / radius of bearing
+
 
 // construction heights
 groove = 0.5; // green
 bevel = 2; // deeppink
 rim = 1.5; // gold
 flange = 1.0; // blue
+hubLength=10;
+hubHoleDiameter=3;
+hubDiameter=6;
+flange_hole_r = hubDiameter/2;
 
 // make it
 build();
@@ -33,9 +41,17 @@ module build()
             translate([0,0,-(bevel+groove+rim+flange+0.1)]) cylinder(r=flange_hole_r, h=20);
         }
     }
+hub(hubLength,hubHoleDiameter,hubDiameter);
 }
 
-
+module hub(thickness,innerDiameter,outerDiameter)
+{
+	difference()
+	{
+		cylinder(thickness,outerDiameter/2,outerDiameter/2);
+		cylinder(thickness,innerDiameter/2,innerDiameter/2);
+	}	
+}
 module wheel()
 {
      union() {
