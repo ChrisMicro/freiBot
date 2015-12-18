@@ -21,6 +21,8 @@ frontRingLength   = 1.2;
 backRingDiameter  = 8.5;
 backRingLength    = 1.7;
 
+ringInlayOffset=2; // this is only to prevent rendering errors
+ 
 motor();
 
 
@@ -31,24 +33,22 @@ axisShift=axisTotalLength-(motorBodyLength+frontRingLength+axisLength);
 module motor()
 {
 	// front ring
-	translate([motorBodyLength/2,0,0]) rotate([0,90,0])	
-	cylinder(h = frontRingLength, r = frontRingDiameter/2, center = false);
+	translate([motorBodyLength/2-ringInlayOffset,0,0]) rotate([0,90,0])	
+		cylinder(h = frontRingLength+ringInlayOffset, r = frontRingDiameter/2, center = false);
 
 	// back ring
 	translate([-motorBodyLength/2-backRingLength,0,0]) rotate([0,90,0])	
-	cylinder(h = backRingLength, r = backRingDiameter/2, center = false);
+		cylinder(h = backRingLength+ringInlayOffset, r = backRingDiameter/2, center = false);
 
 	// axis
 	color("grey") translate([-motorBodyLength/2-axisShift,0,0]) rotate([0,90,0])	
-	cylinder(h = axisTotalLength, r = axisDiameter/2, center = false);
+		cylinder(h = axisTotalLength, r = axisDiameter/2, center = false);
 
 	// body
 	color("grey") intersection()
 	{
 		translate([-motorBodyLength/2,0,0]) rotate([0,90,0])	
-		cylinder(h = motorBodyLength, r = motorDiameter/2, center = false);
-		//motorZylinder();
-		cube(size = [motorBodyLength,motorDiameter,motorHeight], center = true);
+			cylinder(h = motorBodyLength, r = motorDiameter/2, center = false);
+			cube(size = [motorBodyLength,motorDiameter,motorHeight], center = true);
 	}
 }
-
