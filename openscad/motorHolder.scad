@@ -20,6 +20,8 @@ drillPositionBorderDistance = 5 ;
 motorDiameter   = 23.5;
 motorHeight     = 18.5;
 
+motorHolder();
+
 
 basePlateOffset=-MotorholderHeight/2-basePlateHeight/2;
 
@@ -36,7 +38,7 @@ y2=-(MotorHolderWitdh-drillPositionBorderDistance-drilldiameter*2);
 x3=basePlateLength/2-drillPositionBorderDistance;
 y3=-(MotorHolderWitdh-drillPositionBorderDistance-drilldiameter*2);
 
-module basePlate()
+module motorHolderbasePlate()
 {
 	difference()
 	{
@@ -66,12 +68,21 @@ module basePlate()
 	}
 }
 	
-basePlate();
+//basePlate();
 
-
-difference()
+module motorHolder()
 {
-	cube(size = [MotorholderLength,MotorHolderWitdh,MotorholderHeight], center = true);
-	translate([0,0,motorHeight/2-MotorholderHeight/2]) 
-		motor();
+	translate([basePlateLength/2,basePlateWidth/2,MotorholderHeight/2+basePlateHeight])
+	union()
+	{	
+		motorHolderbasePlate();
+		
+		// motor holder main
+		difference()
+		{
+			cube(size = [MotorholderLength,MotorHolderWitdh,MotorholderHeight], center = true);
+			translate([0,0,motorHeight/2-MotorholderHeight/2]) 
+				motor();
+		}
+	}
 }

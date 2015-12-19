@@ -12,11 +12,11 @@
 basePlateLength=40;
 basePlateThickness=3;
 
-axisLength=120;
+axisLength=160;
 axisDiameter=3.2;
 outerDiamter=7;
 
-wheelWidth=12;
+wheelWidth=15;
 wheelDiameter=30;
 wheelHolderWidth=5;
 
