@@ -1,15 +1,16 @@
 /*
-	Openscat modell for Johnson NF243G-20242 Motor
+	Openscad modell for Johnson NF243G-20242 Motor
 
 	2015 by ChrisMicro
 
 */
 
 //$fn=100; // resolution
+manuFactoringOffset=0.5;
 
 motorDiameter   = 23.5;
 motorHeight     = 18.5;
-motorBodyLength = 30.3;
+motorBodyLength = manuFactoringOffset+30.3;
 
 axisLength      = 20;
 axisTotalLength = 55;
@@ -18,8 +19,8 @@ axisDiameter    = 2;
 frontRingDiameter = 6.2;
 frontRingLength   = 1.2;
 
-backRingDiameter  = 8.5;
-backRingLength    = 1.7;
+backRingDiameter  = manuFactoringOffset+8.5;
+backRingLength    = manuFactoringOffset+1.7+.5;
 
 ringInlayOffset=2; // this is only to prevent rendering errors
  

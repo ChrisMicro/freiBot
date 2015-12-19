@@ -1,6 +1,11 @@
+/*
+	motor holder for JohnsonNF243G-20242 motor
+	2015 by ChrisMicro
+*/
+
 use <JohnsonNF243G-20242.scad>
 
-MotorholderLength = 32.5;
+MotorholderLength = 33;
 MotorholderHeight = 10;
 MotorHolderWitdh  = 25;
 
@@ -35,29 +40,30 @@ module basePlate()
 {
 	difference()
 	{
-	// baseplate
-	color("silver") translate([0,0,basePlateOffset]) 		
-		cube(size = [basePlateLength,basePlateWidth,basePlateHeight], center = true);
+		// baseplate
+		color("silver") translate([0,0,basePlateOffset]) 		
+			cube(size = [basePlateLength,basePlateWidth,basePlateHeight], center = true);
 
-	// baseplate drillings
-	union(){
-		// drill 0
-		translate([x0,y0,basePlateOffset-basePlateHeight/2]) 		
-			cylinder(basePlateHeight,drilldiameter,drilldiameter);
+		// baseplate drillings
+		union()
+		{
+			// drill 0
+			translate([x0,y0,basePlateOffset-basePlateHeight/2]) 		
+				cylinder(basePlateHeight,drilldiameter,drilldiameter);
 
-		// drill 1
-		translate([x1,y1,basePlateOffset-basePlateHeight/2]) 		
-			cylinder(basePlateHeight,drilldiameter,drilldiameter);
+			// drill 1
+			translate([x1,y1,basePlateOffset-basePlateHeight/2]) 		
+				cylinder(basePlateHeight,drilldiameter,drilldiameter);
 
-		// drill 2
-		translate([x2,y2,basePlateOffset-basePlateHeight/2]) 		
-			cylinder(basePlateHeight,drilldiameter,drilldiameter);
+			// drill 2
+			translate([x2,y2,basePlateOffset-basePlateHeight/2]) 		
+				cylinder(basePlateHeight,drilldiameter,drilldiameter);
 
-		// drill 3
-		translate([x3,y3,basePlateOffset-basePlateHeight/2]) 		
-			cylinder(basePlateHeight,drilldiameter,drilldiameter);
+			// drill 3
+			translate([x3,y3,basePlateOffset-basePlateHeight/2]) 		
+				cylinder(basePlateHeight,drilldiameter,drilldiameter);
+		}
 	}
-}
 }
 	
 basePlate();
