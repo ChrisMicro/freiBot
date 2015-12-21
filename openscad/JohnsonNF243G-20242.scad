@@ -5,11 +5,11 @@
 
 */
 
-//$fn=100; // resolution
+$fn=100; // resolution
 manuFactoringOffset=0.5;
 
-motorDiameter   = 23.5;
-motorHeight     = 18.5;
+motorDiameter   = manuFactoringOffset+24;
+motorHeight     = manuFactoringOffset+18.5;
 motorBodyLength = manuFactoringOffset+30.3;
 
 axisLength      = 20;
@@ -26,7 +26,8 @@ ringInlayOffset=2; // this is only to prevent rendering errors
  
 motor();
 
-
+function get_motorDiameter()=motorDiameter;
+function get_motorHeight()=motorHeight;
 
 axisShift=axisTotalLength-(motorBodyLength+frontRingLength+axisLength);
 

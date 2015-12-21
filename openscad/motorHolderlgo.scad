@@ -3,13 +3,12 @@
 	2015 by ChrisMicro
 */
 
-$fn=100;
-
 use <JohnsonNF243G-20242.scad>
+use <lgo_holePlate.scad>
 
 MotorholderLength = 33;
 MotorholderHeight = 10;
-MotorHolderWitdh  = 26;
+MotorHolderWitdh  = 25;
 
 basePlateLength   = MotorholderLength;
 basePlateWidth    = 40;
@@ -19,11 +18,15 @@ basePlateHeight   = 3;
 drilldiameter = 3.3/2;
 drillPositionBorderDistance = 5 ;
 
-motorDiameter   = get_motorDiameter();
-motorHeight     = get_motorHeight();
+motorDiameter   = 23.5;
+motorHeight     = 18.5;
 
-motorHolder();
+distanceBetweenSawTooth=3*8;
 
+upShift=distanceBetweenSawTooth-zt()*2+MotorholderHeight/2;
+
+translate([0,0,upShift])rotate([0,0,90]) motorHolder();
+lgo_holePlate(4,4);
 
 basePlateOffset=-MotorholderHeight/2-basePlateHeight/2;
 
@@ -74,10 +77,10 @@ module motorHolderbasePlate()
 
 module motorHolder()
 {
-	translate([basePlateLength/2,basePlateWidth/2,MotorholderHeight/2+basePlateHeight])
+	//translate([basePlateLength/2,basePlateWidth/2,MotorholderHeight/2+basePlateHeight])
 	union()
 	{	
-		motorHolderbasePlate();
+		//motorHolderbasePlate();
 		
 		// motor holder main
 		difference()
