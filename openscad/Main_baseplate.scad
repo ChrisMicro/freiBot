@@ -25,7 +25,7 @@ translate([120-motorHolderX,100,0])
 translate([motorHolderX,100+motorHolderY,0]) rotate([0,0,180])
 	motorHolder();
 
-fs=30;
+fs=25;
 // front plate
 translate([60-fs/2,-fs+10,0])
 cube([fs,fs,3]);
