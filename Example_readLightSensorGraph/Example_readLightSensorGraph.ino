@@ -27,7 +27,7 @@ void loop()
   value  = get_eyeValue(LEFT);
             
   Serial.println( value );
-    Serial.println( value );
+  //  Serial.println( value );
  
   delay(100);
 }

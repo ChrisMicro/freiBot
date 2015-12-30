@@ -21,16 +21,16 @@ void initRobotHardware()
 
 }
 
-#define EYESAMPLINGTIME_US (20000-396) // experimental filter time should be 20ms @ 50 Hz
+#define EYESAMPLINGTIME_MS 20
 
 uint16_t get_eyeValue(uint8_t side)
 {
-  uint16_t eye, n;
+  uint16_t eye;
   uint32_t value = 0;
   uint32_t stopTime;
   uint32_t count = 0;
 
-
+  stopTime = millis() + EYESAMPLINGTIME_MS;
 
   if (side == LEFT) eye = EYE_LED_LEFT;
   else              eye = EYE_LED_RIGHT;
@@ -42,19 +42,43 @@ uint16_t get_eyeValue(uint8_t side)
 
   pinMode(eye, INPUT);
 
- stopTime = micros() + EYESAMPLINGTIME_US;
-
-
- do
+  while (millis() < stopTime)
   {
     value = value + analogRead(eye);
     count++;
   }
-  while (micros() < stopTime);
 
   value = value / count;
 
   return value;
+}
+
+#define LIGHTJUMPTRIGGERLEVEL 20
+// wait for a sudden increasing light and exit
+// or exit after timeout
+uint8_t isLightJump(uint32_t timeOut_ms)
+{
+  int16_t oldValue = 0x7FFF;
+  int16_t value;
+  int16_t left;
+  int16_t right;
+  uint8_t trueIfLightJump = false;
+  uint32_t stopTime;
+
+  stopTime = millis() + timeOut_ms;
+  while (millis() < stopTime)
+  {
+    left  = get_eyeValue(LEFT);
+    right = get_eyeValue(RIGHT);
+    value = left + right;
+    if (value - oldValue > LIGHTJUMPTRIGGERLEVEL)
+    {
+      trueIfLightJump = true;
+      break;
+    }
+    oldValue = value;
+  }
+  return trueIfLightJump;
 }
 
 void setLed(uint8_t led, uint8_t value)

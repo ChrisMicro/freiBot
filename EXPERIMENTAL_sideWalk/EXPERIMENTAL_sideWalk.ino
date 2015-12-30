@@ -13,7 +13,7 @@ void setup()
 
 void loop()
 {
-  int maxSpeed=100;
+  int maxSpeed=250;
   int n;
   int dist=800;
   

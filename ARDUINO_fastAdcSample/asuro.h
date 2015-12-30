@@ -1,19 +1,40 @@
+#include "Arduino.h"
+#include "sound_extended.h"
+#include "stdint.h"
+#include "pin_defintions.h"
 
-  #include "asuro.h"
-  //#include "sound.h"
-  
-  void initRobotHardware(void);
-  uint16_t get_eyeValue(uint8_t side);
-  void setLed(uint8_t led, uint8_t value);
-  uint8_t isIrSignal(void);
-  void waitForIrSignal(void);
-  uint8_t whiskerTouched(void);
-    void Sound ( uint16_t freq,  uint16_t duration_msec,  uint8_t  amplitude);
+/************************************************************************************
 
-  void motrChirp(uint16_t startFreq_HZ, uint16_t stopFreq_HZ,uint16_t duration_ms);
-  void ringSound(void);
-  void chirp(void);
-  void beep(void);
+	driver definitions
+
+        Functions for compatibility to the ASURO robot
+
+************************************************************************************/
+// ASRURO Motor states
+#define FREE    0                    // motor free runing
+#define BREAK   1                    // break motor
+#define FWD     2                    // motor forward
+#define RWD     3                    // motor backward
+
+#define LEFT	1
+#define RIGHT   2
+
+//#define Sleep(x) delayMicroseconds(x)
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+  void Msleep(uint32_t time_ms);
+  void Sleep(uint32_t time_us);
+  void MotorSpeed(uint8_t left, uint8_t right);
+  void MotorDir(uint8_t left, uint8_t right);
+  void Go   ( int16_t distance, uint8_t speed ); 
+  void Turn ( int16_t degree  , uint8_t speed );
+#ifdef __cplusplus
+}
+#endif
+
 
 /*******************************************************************************
 *   -c--date---version--nickname--------email---------------------------------
