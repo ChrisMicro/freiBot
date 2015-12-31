@@ -10,7 +10,7 @@ void initRobotHardware()
   pinMode(LEDPIN, OUTPUT);
   pinMode(EYE_LED_LEFT, OUTPUT);
   pinMode(EYE_LED_RIGHT, OUTPUT);
-  
+
   pinMode(ENABLE_RIGHT, OUTPUT);
   pinMode(MOTOR_RIGHT1, OUTPUT);
   pinMode(MOTOR_RIGHT2, OUTPUT);
@@ -21,26 +21,38 @@ void initRobotHardware()
 
 }
 
-#define AVERAGING_EYE_VALUES 170
+#define EYESAMPLINGTIME_US (20000-396) // experimental filter time should be 20ms @ 50 Hz
 
 uint16_t get_eyeValue(uint8_t side)
 {
   uint16_t eye, n;
   uint32_t value = 0;
+  uint32_t stopTime;
+  uint32_t count = 0;
+
+
 
   if (side == LEFT) eye = EYE_LED_LEFT;
   else              eye = EYE_LED_RIGHT;
 
-  pinMode(eye, OUTPUT);
-  digitalWrite(eye, 0); // discharge
+  pinMode(EYE_LED_LEFT, OUTPUT);
+  pinMode(EYE_LED_RIGHT, OUTPUT);
+  digitalWrite(EYE_LED_LEFT, 0); // discharge
+  digitalWrite(EYE_LED_RIGHT, 0); // discharge
+
   pinMode(eye, INPUT);
 
-  for (n = 0; n < AVERAGING_EYE_VALUES; n++)
-  {
-    value = value+ analogRead(eye);
-  }
+ stopTime = micros() + EYESAMPLINGTIME_US;
 
-  value /= AVERAGING_EYE_VALUES;
+
+ do
+  {
+    value = value + analogRead(eye);
+    count++;
+  }
+  while (micros() < stopTime);
+
+  value = value / count;
 
   return value;
 }
@@ -71,107 +83,34 @@ void waitForIrSignal()
 
 uint8_t whiskerTouched()
 {
-  static uint8_t oldState=0;
+  static uint8_t oldState = 0;
   uint8_t state;
-  uint8_t result=0;
-  
-  state=!digitalRead(WHISKERPIN);
-  
-  if((state!=0)&&(oldState==0)) result=1;
+  uint8_t result = 0;
 
-  oldState=state;
-  
+  state = !digitalRead(WHISKERPIN);
+
+  if ((state != 0) && (oldState == 0)) result = 1;
+
+  oldState = state;
+
   return result;
 }
 
 
-
-// original sound code from Asuro:
-/****************************************************************************/
-/*!
-  \file     sound.c
-  \brief    Soundausgabe Funktionen
-  Mit den Motoren des ASUROs lassen sich auch Töne erzeugen.\n
-  Das Prinzip dahinter ist folgendes:\n
-  Die Frequenz des Tons wird durch umschalten der Motor Drehrichtung bestimmt.\n
-  Die Lautstärke wird über die Geschwindigkeit der Motoren bestimmt.\n
-  Theoretisch liessen sich damit auch Stereo Signale erzeugen, da es ja zwei\n
-  Motoren gibt, die sich auch getrennt ansteuern lassen. Dazu müsste die\n
-  Sound Funktion allerdings umgeschrieben werden.
-  \see      Define fuer die Steuerung der Motoren in asuro.h\n
-            FWD, RWD
-  \version  sto2 - 01.09.2006 - stochri\n
-            first version
-  \version  V001 - 09.02.2007 - m.a.r.v.i.n\n
-            +++ Alle Funktionen\n
-            Kommentierte Version (KEINE Funktionsaenderung)
-  \version  V002 - 18.02.2007 - Sternthaler\n
-            +++ Alle Funktionen\n
-            Einheitliche Formatierung zu den anderen Sourcen.
-  \version  V003 - 26.06.2007 - stochri\n
-            Bugfix Fehler in der Soundlaenge (max. 250ms)  
-            
-*****************************************************************************/
-/*****************************************************************************
-*                                                                            *
-*   This program is free software; you can redistribute it and/or modify     *
-*   it under the terms of the GNU General Public License as published by     *
-*   the Free Software Foundation; either version 2 of the License, or        *
-*   any later version.                                                       *
-*                                                                            *
-*****************************************************************************/
-//#include "asuro.h"
-
-/****************************************************************************/
-/*!
-  \brief
-  Soundausgabe ueber die Motoren.
-  \param[in]
-  freq          Frequenz in Hz
-  \param[in]
-  duration_msec Laenge in Millisekunden
-  \param[in]
-  amplitude     Amplitude
-  \return
-  nichts
-  \par  Beispiel:
-  (Nur zur Demonstration der Parameter/Returnwerte)
-  \code
-  // Laesst den Asuro einen Ton von 1kHz für eine 1/2 Sekunde
-  // mit max. Amplitude (255) spielen.
-  Sound (1000, 500, 255);
-  \endcode
-*****************************************************************************/
-/*
-void Sound (
-  uint16_t freq,
-  uint16_t duration_msec,
-  uint8_t  amplitude)
-{
-  uint16_t wait_tics;
-  uint32_t n,k,period_usec,dauer_usec;
-
-  period_usec = 1000000L / freq;
-  dauer_usec = 1000 * (uint32_t) duration_msec;
-  k = dauer_usec / period_usec;
-
-  //IR Interuptfreq=36KHz
-  //Wavefreq=18KHz
-
-  wait_tics = 18000 / freq;
-
-  MotorSpeed (amplitude, amplitude);
-
-  for (n = 0; n < k; n++)
-  {
-    MotorDir (FWD, FWD);
-    Sleep (wait_tics);
-    MotorDir (RWD, RWD);
-    Sleep (wait_tics);
-  }
-  MotorSpeed (0, 0);
-}*/
-
-
-//#define BEEP sound (1000, 100, 255)
-
+/*******************************************************************************
+*   -c--date---version--nickname--------email---------------------------------
+*
+*   (c) 2015   V0.1     stochri         christoph(at)roboterclub-freiburg.de
+*
+*******************************************************************************
+*   This program is free software; you can redistribute it and/or modify      *
+*   it under the terms of the GNU General Public License as published by      *
+*   the Free Software Foundation version 2 of the License,                    *
+*   If you want to use this software for commercial purposes and you          *
+*   don't want to make it open source, please contact the authors for         *
+*   licensing.                                                                *
+*                                                                             *
+*   IF YOU EXTEND THE PROGRAM PLEASE MAINTAIN THE LIST OF AUTHORS             *
+*   ( which means adding copyright in the list above )                        *
+*                                                                             *
+*******************************************************************************/

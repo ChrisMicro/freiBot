@@ -1,6 +1,7 @@
 /*
 *
-* Addapted functions like the ASURO LIB
+* Compatiblity library for the "freiBot" 
+* Functions like the ASURO LIB
 *
 * http://sourceforge.net/projects/asuro/
 *

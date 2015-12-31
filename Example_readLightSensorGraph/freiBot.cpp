@@ -31,7 +31,6 @@ uint16_t get_eyeValue(uint8_t side)
   uint32_t count = 0;
 
 
-
   if (side == LEFT) eye = EYE_LED_LEFT;
   else              eye = EYE_LED_RIGHT;
 
@@ -42,10 +41,8 @@ uint16_t get_eyeValue(uint8_t side)
 
   pinMode(eye, INPUT);
 
- stopTime = micros() + EYESAMPLINGTIME_US;
-
-
- do
+  stopTime = micros() + EYESAMPLINGTIME_US;
+  do
   {
     value = value + analogRead(eye);
     count++;
