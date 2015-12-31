@@ -39,7 +39,11 @@ uint16_t get_eyeValue(uint8_t side)
   digitalWrite(EYE_LED_LEFT, 0); // discharge
   digitalWrite(EYE_LED_RIGHT, 0); // discharge
 
+  pinMode(eye, INPUT_PULLUP);
+  digitalWrite(eye, 1); // precharge
+
   pinMode(eye, INPUT);
+  delay(20);
 
   stopTime = micros() + EYESAMPLINGTIME_US;
   do

@@ -21,16 +21,15 @@ void initRobotHardware()
 
 }
 
-#define EYESAMPLINGTIME_MS 20
+#define EYESAMPLINGTIME_US (20000-396) // experimental filter time should be 20ms @ 50 Hz
 
 uint16_t get_eyeValue(uint8_t side)
 {
-  uint16_t eye;
+  uint16_t eye, n;
   uint32_t value = 0;
   uint32_t stopTime;
   uint32_t count = 0;
 
-  stopTime = millis() + EYESAMPLINGTIME_MS;
 
   if (side == LEFT) eye = EYE_LED_LEFT;
   else              eye = EYE_LED_RIGHT;
@@ -40,13 +39,19 @@ uint16_t get_eyeValue(uint8_t side)
   digitalWrite(EYE_LED_LEFT, 0); // discharge
   digitalWrite(EYE_LED_RIGHT, 0); // discharge
 
-  pinMode(eye, INPUT);
+  pinMode(eye, INPUT_PULLUP);
+  digitalWrite(eye, 1); // precharge
 
-  while (millis() < stopTime)
+  pinMode(eye, INPUT);
+  delay(20);
+
+  stopTime = micros() + EYESAMPLINGTIME_US;
+  do
   {
     value = value + analogRead(eye);
     count++;
   }
+  while (micros() < stopTime);
 
   value = value / count;
 

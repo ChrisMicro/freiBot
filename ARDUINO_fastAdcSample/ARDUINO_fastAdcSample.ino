@@ -21,15 +21,17 @@ void setup()
 
 void setPins()
 {
-  /*
+  
   uint8_t eye=EYE_LED_LEFT;
 
   pinMode(EYE_LED_LEFT, OUTPUT);
   pinMode(EYE_LED_RIGHT, OUTPUT);
   digitalWrite(EYE_LED_LEFT, 0); // discharge
   digitalWrite(EYE_LED_RIGHT, 0); // discharge
-
-  pinMode(eye, INPUT);*/
+  pinMode(EYE_LED_LEFT, INPUT_PULLUP);
+  digitalWrite(EYE_LED_LEFT, 1); // precharge
+ 
+  pinMode(eye, INPUT);
 }
 
 
@@ -39,7 +41,7 @@ uint16_t Signal[SIGNNAL_LENGTH_MAX];
 
 float SampleRate_us; 
 
-
+// full speed
 uint32_t sample(uint8_t adcChannel,uint16_t numberOfSamples)
 {
   uint32_t startTime,samplingDuration;
@@ -58,6 +60,7 @@ uint32_t sample(uint8_t adcChannel,uint16_t numberOfSamples)
   return samplingDuration ; // return total sampling duration  
 }
 
+// fixed sample rate
 uint32_t sampleFixedRate(uint8_t adcChannel, uint16_t numberOfSamples)
 {
   uint16_t n;
@@ -81,17 +84,17 @@ uint32_t sampleFixedRate(uint8_t adcChannel, uint16_t numberOfSamples)
 void loop()
 {
   uint16_t n;
-  uint16_t length=200;
+  uint16_t numberOfSamples=SIGNNAL_LENGTH_MAX;
   uint32_t signal_length_us;
 
   setPins();
   SampleRate_us=1000;
-  signal_length_us=sampleFixedRate(0,length);
+  signal_length_us=sampleFixedRate(0,numberOfSamples);
 
   //signal_length_us=sample(0,length);
 
 
-  for(n=0;n<length;n++)
+  for(n=0;n<numberOfSamples;n++)
   {          
     Serial.println( Signal[n] );
   }

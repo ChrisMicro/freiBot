@@ -24,12 +24,12 @@ void loop()
 {
   int value;
   
-  value  = get_eyeValue(LEFT);
+  value  = get_eyeValue(LEFT)-get_eyeValue(RIGHT);
             
   Serial.println( value );
   //  Serial.println( value );
  
-  delay(100);
+  //delay(100);
 }
 
 
