@@ -15666,6 +15666,17 @@ In this library the device names are the same as the pin names of the symbols, t
 <part name="BLUETOOTH_HC05" library="pinhead" deviceset="PINHD-1X6" device=""/>
 <part name="GND13" library="supply1" deviceset="GND" device=""/>
 <part name="SUPPLY3" library="supply2" deviceset="+5V" device=""/>
+<part name="A7" library="pinhead" deviceset="PINHD-1X1" device=""/>
+<part name="AREF" library="pinhead" deviceset="PINHD-1X1" device=""/>
+<part name="TX" library="pinhead" deviceset="PINHD-1X1" device=""/>
+<part name="A6" library="pinhead" deviceset="PINHD-1X1" device=""/>
+<part name="3V3" library="pinhead" deviceset="PINHD-1X1" device=""/>
+<part name="RX" library="pinhead" deviceset="PINHD-1X1" device=""/>
+<part name="RESET" library="pinhead" deviceset="PINHD-1X1" device=""/>
+<part name="A1" library="pinhead" deviceset="PINHD-1X1" device="" value="V5V"/>
+<part name="A2" library="pinhead" deviceset="PINHD-1X1" device="" value="VGND"/>
+<part name="SUPPLY4" library="supply2" deviceset="+5V" device=""/>
+<part name="GND14" library="supply1" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -15696,9 +15707,12 @@ In this library the device names are the same as the pin names of the symbols, t
 <instance part="ARDUINO_LED" gate="G$1" x="160.02" y="66.04"/>
 <instance part="SDA" gate="G$1" x="111.76" y="68.58" rot="R90"/>
 <instance part="SCL" gate="G$1" x="106.68" y="78.74" rot="R90"/>
-<instance part="NEOPIXEL" gate="G$1" x="121.92" y="12.7" rot="R270"/>
-<instance part="BUTTON" gate="G$1" x="142.24" y="17.78" rot="R270"/>
-<instance part="WHISKER" gate="G$1" x="147.32" y="7.62" rot="R270"/>
+<instance part="NEOPIXEL" gate="G$1" x="121.92" y="12.7" smashed="yes" rot="R270">
+<attribute name="NAME" x="122.555" y="31.75" size="1.778" layer="95" rot="R270"/>
+<attribute name="VALUE" x="116.84" y="19.05" size="1.778" layer="96" rot="R270"/>
+</instance>
+<instance part="BUTTON" gate="G$1" x="142.24" y="22.86" rot="R270"/>
+<instance part="WHISKER" gate="G$1" x="147.32" y="10.16" rot="R270"/>
 <instance part="IR1" gate="G$1" x="193.04" y="-7.62" rot="MR0"/>
 <instance part="GND9" gate="1" x="193.04" y="-27.94"/>
 <instance part="SUPPLY1" gate="+5V" x="91.44" y="93.98"/>
@@ -15714,6 +15728,17 @@ In this library the device names are the same as the pin names of the symbols, t
 <instance part="BLUETOOTH_HC05" gate="A" x="233.68" y="96.52"/>
 <instance part="GND13" gate="1" x="185.42" y="99.06"/>
 <instance part="SUPPLY3" gate="+5V" x="195.58" y="116.84"/>
+<instance part="A7" gate="G$1" x="96.52" y="78.74" rot="R90"/>
+<instance part="AREF" gate="G$1" x="137.16" y="78.74" rot="R90"/>
+<instance part="TX" gate="G$1" x="76.2" y="12.7" rot="R270"/>
+<instance part="A6" gate="G$1" x="101.6" y="68.58" rot="R90"/>
+<instance part="3V3" gate="G$1" x="142.24" y="68.58" rot="R90"/>
+<instance part="RX" gate="G$1" x="81.28" y="22.86" rot="R270"/>
+<instance part="RESET" gate="G$1" x="86.36" y="17.78" rot="R270"/>
+<instance part="A1" gate="G$1" x="233.68" y="58.42" rot="R270"/>
+<instance part="A2" gate="G$1" x="233.68" y="45.72" rot="R90"/>
+<instance part="SUPPLY4" gate="+5V" x="233.68" y="71.12"/>
+<instance part="GND14" gate="1" x="233.68" y="33.02"/>
 </instances>
 <busses>
 </busses>
@@ -15829,6 +15854,11 @@ In this library the device names are the same as the pin names of the symbols, t
 <label x="200.66" y="101.6" size="1.778" layer="95"/>
 <pinref part="GND13" gate="1" pin="GND"/>
 <wire x1="231.14" y1="101.6" x2="185.42" y2="101.6" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="GND14" gate="1" pin="GND"/>
+<pinref part="A2" gate="G$1" pin="1"/>
+<wire x1="233.68" y1="35.56" x2="233.68" y2="43.18" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$5" class="0">
@@ -15961,14 +15991,14 @@ In this library the device names are the same as the pin names of the symbols, t
 <segment>
 <pinref part="WHISKER" gate="G$1" pin="1"/>
 <pinref part="U$1" gate="G$1" pin="D12"/>
-<wire x1="147.32" y1="10.16" x2="147.32" y2="30.48" width="0.1524" layer="91"/>
+<wire x1="147.32" y1="12.7" x2="147.32" y2="30.48" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$21" class="0">
 <segment>
 <pinref part="BUTTON" gate="G$1" pin="1"/>
 <pinref part="U$1" gate="G$1" pin="D11"/>
-<wire x1="142.24" y1="20.32" x2="142.24" y2="30.48" width="0.1524" layer="91"/>
+<wire x1="142.24" y1="25.4" x2="142.24" y2="30.48" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$22" class="0">
@@ -16020,6 +16050,11 @@ In this library the device names are the same as the pin names of the symbols, t
 <wire x1="231.14" y1="104.14" x2="195.58" y2="104.14" width="0.1524" layer="91"/>
 <label x="200.66" y="104.14" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="SUPPLY4" gate="+5V" pin="+5V"/>
+<pinref part="A1" gate="G$1" pin="1"/>
+<wire x1="233.68" y1="68.58" x2="233.68" y2="60.96" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="VCC" class="0">
 <segment>
@@ -16065,7 +16100,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <segment>
 <pinref part="U$1" gate="G$1" pin="D6"/>
 <wire x1="116.84" y1="30.48" x2="116.84" y2="20.32" width="0.1524" layer="91"/>
-<label x="116.84" y="33.02" size="1.778" layer="95" rot="R270"/>
+<label x="116.84" y="20.32" size="1.778" layer="95" rot="R270"/>
 </segment>
 </net>
 <net name="BLUE_RXD_ARDUINO_TXD" class="0">
@@ -16077,7 +16112,56 @@ In this library the device names are the same as the pin names of the symbols, t
 <segment>
 <pinref part="U$1" gate="G$1" pin="D8"/>
 <wire x1="127" y1="30.48" x2="127" y2="20.32" width="0.1524" layer="91"/>
-<label x="127" y="33.02" size="1.778" layer="95" rot="R270"/>
+<label x="127" y="20.32" size="1.778" layer="95" rot="R270"/>
+</segment>
+</net>
+<net name="N$25" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="A6"/>
+<pinref part="A6" gate="G$1" pin="1"/>
+<wire x1="101.6" y1="66.04" x2="101.6" y2="60.96" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$26" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="3V3"/>
+<pinref part="3V3" gate="G$1" pin="1"/>
+<wire x1="142.24" y1="66.04" x2="142.24" y2="60.96" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$27" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="AREF"/>
+<pinref part="AREF" gate="G$1" pin="1"/>
+<wire x1="137.16" y1="60.96" x2="137.16" y2="76.2" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$28" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="A7"/>
+<pinref part="A7" gate="G$1" pin="1"/>
+<wire x1="96.52" y1="60.96" x2="96.52" y2="76.2" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$30" class="0">
+<segment>
+<pinref part="TX" gate="G$1" pin="1"/>
+<pinref part="U$1" gate="G$1" pin="D1/TX"/>
+<wire x1="76.2" y1="15.24" x2="76.2" y2="30.48" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$31" class="0">
+<segment>
+<pinref part="RX" gate="G$1" pin="1"/>
+<pinref part="U$1" gate="G$1" pin="D0/RX"/>
+<wire x1="81.28" y1="25.4" x2="81.28" y2="30.48" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$29" class="0">
+<segment>
+<pinref part="RESET" gate="G$1" pin="1"/>
+<pinref part="U$1" gate="G$1" pin="RESET"/>
+<wire x1="86.36" y1="20.32" x2="86.36" y2="30.48" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
