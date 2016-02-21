@@ -1,27 +1,107 @@
-#include "freiBot.h"
+/*
+  Melody
+
+ Plays a melody
+
+ circuit:
+ * 8-ohm speaker on digital pin 8
+
+ created 21 Jan 2010
+ modified 30 Aug 2011
+ by Tom Igoe
+
+This example code is in the public domain.
+
+modified for genubot: ChrisMicro Sep.2015
+
+
+ http://www.arduino.cc/en/Tutorial/Tone
+
+ */
+ #include "freiBot.h"
+ #include "pitches.h"
+
+// notes in the melody:
+int melody[] = {
+    NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4
+};
+
+// note durations: 4 = quarter note, 8 = eighth note, etc.:
+int noteDurations[] = {
+    4, 8, 8, 4, 4, 4, 4, 4
+};
 
 void setup()
 {
-  initRobotHardware();
+    initRobotHardware();
 }
 
-int geschwindigkeit = 100;
+void loop() {
 
-void loop()
-{
-  //delay(5000);
+    int maxSpeed=200;
+    delay(1000);
 
-  Go   ( 20, geschwindigkeit ); // vorwaerts 20cm
-  delay(1000);
+    //************** left motor forward ********************************
+    digitalWrite(MOTOR_LEFT1, LOW);
+    digitalWrite(MOTOR_LEFT2, HIGH);
 
-  Go   ( -20, geschwindigkeit); // rueckwärts 20cm
-  delay(1000);
+    analogWrite(ENABLE_LEFT, maxSpeed);
+    delay(1000);
 
-  Turn ( 90, geschwindigkeit ); // drehen rechts 90 grad
-  delay(1000);
+    analogWrite(ENABLE_LEFT, 0); // turn off
+    delay(2000);
 
-  Turn ( -90, geschwindigkeit ); // drehen links 90 grad
-  delay(1000);
+    //************** left motor backward ********************************
+    digitalWrite(MOTOR_LEFT1, HIGH);
+    digitalWrite(MOTOR_LEFT2, LOW);
+
+    analogWrite(ENABLE_LEFT, maxSpeed);
+    delay(1000);
+
+    analogWrite(ENABLE_LEFT, 0); // turn off
+    delay(2000);
+
+    //************** RIGHT motor forward ********************************
+    digitalWrite(MOTOR_RIGHT1, LOW);
+    digitalWrite(MOTOR_RIGHT2, HIGH);
+
+    analogWrite(ENABLE_RIGHT, maxSpeed);
+    delay(1000);
+
+    analogWrite(ENABLE_RIGHT, 0); // turn off
+    delay(2000);
+
+    //************** RIGHT motor backward ********************************
+    digitalWrite(MOTOR_RIGHT1, HIGH);
+    digitalWrite(MOTOR_RIGHT2, LOW);
+
+    analogWrite(ENABLE_RIGHT, maxSpeed);
+    delay(1000);
+
+    analogWrite(ENABLE_RIGHT, 0); // turn off
+    delay(2000);
+
+
+    /*
+    // iterate over the notes of the melody:
+    for (int thisNote = 0; thisNote < 8; thisNote++) {
+
+        // to calculate the note duration, take one second
+        // divided by the note type.
+        //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
+        int noteDuration = 1000 / noteDurations[thisNote];
+        //Sound(melody[thisNote], noteDuration,255);
+        motorTone(melody[thisNote], noteDuration);
+        // to distinguish the notes, set a minimum time between them.
+        // the note's duration + 30% seems to work well:
+        int pauseBetweenNotes = noteDuration * 1.30;
+        delay(pauseBetweenNotes);
+        // stop the tone playing:
+
+    }
+
+    delay(1000);
+    */
 }
 
 

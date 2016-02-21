@@ -54,25 +54,24 @@
 
 #define PRO_MICRO
 #ifdef PRO_MICRO
-#define MOTOR_RIGHT1     16 // dout, L293D pin7, motor driver right side, half bridge 1
-#define MOTOR_RIGHT2     10 // dout, L293D pin2, motor driver right side, half bridge 2
+#define MOTOR_RIGHT1     8  // dout, L293D pin7, motor driver right side, half bridge 1
+#define MOTOR_RIGHT2     16 // dout, L293D pin2, motor driver right side, half bridge 2
 #define IR_SENSOR        4  // din , SFH5110 sensor ( signal is active low )
-#define NEOPIXEL_PIN     6  // dout, WS2812 RGB LED controll pin
-#define ENABLE_RIGHT     14 // dout, L293D pin1, motor driver enable pin for right motor, OC1B used for motor PWM
-#define ENABLE_LEFT      7  // dout, L293D pin9, motor driver enable pin for left moter, OC1A used for motor PWM
-#define BUTTONPIN        11 // din,  button ( configure with pull up )
-#define WHISKERPIN       12 // din,  whisker ( like a button configure with pull up )
+#define NEOPIXEL_PIN     7  // dout, WS2812 RGB LED controll pin
+#define ENABLE_RIGHT     9  // dout, L293D pin1, motor driver enable pin for right motor, OC1B used for motor PWM
+#define ENABLE_LEFT      10 // dout, L293D pin9, motor driver enable pin for left moter, OC1A used for motor PWM
+#define BUTTONPIN        A0 // din,  button ( configure with pull up )
+#define WHISKERPIN       A1 // din,  whisker ( like a button configure with pull up )
 #define LEDPIN           17 // dout, ARDUINO NANO LED
-
-#define EYE_LED_LEFT     A0 // dout,ain, LED or LED as light sensor
-#define EYE_LED_RIGHT    A1 // dout,ain, LED or LED as light sensor
-#define MOTOR_LEFT2      9  // dout, L293D pin15, motor driver left side half bridge 2
-#define MOTOR_LEFT1      8  // dout, L293D pin10, motor driver left side half bridge 1
+#define EYE_LED_LEFT     A2 // dout,ain, LED or LED as light sensor
+#define EYE_LED_RIGHT    A3 // dout,ain, LED or LED as light sensor
+#define MOTOR_LEFT2      14 // dout, L293D pin15, motor driver left side half bridge 2
+#define MOTOR_LEFT1      15 // dout, L293D pin10, motor driver left side half bridge 1
 
 // A2
 // A3
-#define I2C_SDA_PIN      A4 // I2C SDA, connected to MPU6050
-#define I2C_SCL_PIN      A5 // I2C SCL, connected to MPU6050
+#define I2C_SDA_PIN      2  // I2C SDA, connected to MPU6050
+#define I2C_SCL_PIN      3  // I2C SCL, connected to MPU6050
 // A6
 // A7
 #endif
