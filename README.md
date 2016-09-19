@@ -8,7 +8,8 @@ The design goal is a robot which is
 
 Here you can see the pictures:
 
-http://roboterclub-freiburg.de/projekte/freiBot/index.php
+http://roboterclub-freiburg.de/projekte/freibot
+
 
 
 
