@@ -107,7 +107,7 @@ endif
 
 if pos2 < minpos2 then
  direction2=1
- pos2=minpos
+ pos2=minpos2
 endif
 
 io(servo,pin2,pos2) 
@@ -149,6 +149,8 @@ wait
 io(po,pin,0) 
 io(po,pin2,0) 
 end
+
+
 
 
 

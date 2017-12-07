@@ -19,6 +19,7 @@ html |<p>adc value</p>|
 textbox value 
 print
 
+cssclass "button", "background-color: yellow;"
 button "Exit", [TestExit] 
 wait 
 
